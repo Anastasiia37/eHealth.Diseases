@@ -8,7 +8,7 @@ using eHealth.Diseases.BusinessLogic.DbContext.Entity;
 namespace eHealth.Diseases.BusinessLogic.Managers.Service
 {
     /// <summary>
-    /// Service for wirking with diseases
+    /// Service for working with diseases
     /// </summary>
     /// <seealso cref="eHealth.Diseases.BusinessLogic.Contracts.Service.IDiseaseManager" />
     public class DiseaseManager : IDiseaseManager

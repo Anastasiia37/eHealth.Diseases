@@ -9,7 +9,7 @@ namespace eHealth.Diseases.Models
     public class UpdatePatientDiseaseRequest
     {
         /// <summary>
-        /// Gets or sets the end date of ilness
+        /// Gets or sets the end date of illness
         /// </summary>
         /// <value>
         /// The end date

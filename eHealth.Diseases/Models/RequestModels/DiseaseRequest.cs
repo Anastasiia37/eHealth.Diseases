@@ -22,7 +22,7 @@ namespace eHealth.Diseases.Models
         }
 
         /// <summary>
-        /// Gets or sets the category identifierof disease
+        /// Gets or sets the category identifier of disease
         /// </summary>
         /// <value>
         /// The category identifier

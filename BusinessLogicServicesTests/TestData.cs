@@ -4,8 +4,14 @@ using eHealth.Diseases.BusinessLogic.DbContext.Entity;
 
 namespace BusinessLogicServicesTests
 {
+    /// <summary>
+    /// Test data for tests
+    /// </summary>
     public class TestData
     {
+        /// <summary>
+        /// The list of categories for tests
+        /// </summary>
         public List<DiseaseCategory> Categories = new List<DiseaseCategory>
         {
             new DiseaseCategory
@@ -28,6 +34,9 @@ namespace BusinessLogicServicesTests
             }
         };
 
+        /// <summary>
+        /// The list of diseases for tests
+        /// </summary>
         public List<Disease> Diseases = new List<Disease>
         {
             new Disease
@@ -40,6 +49,9 @@ namespace BusinessLogicServicesTests
                 }
         };
 
+        /// <summary>
+        /// The disease  for tests
+        /// </summary>
         public Disease disease = new Disease
         {
             DiseaseId = 1,
@@ -49,6 +61,9 @@ namespace BusinessLogicServicesTests
             IsDeleted = false
         };
 
+        /// <summary>
+        /// The patient disease  for tests
+        /// </summary>
         public PatientDisease patientDisease = new PatientDisease
         {
             PatientDiseaseId = 1,
@@ -61,6 +76,9 @@ namespace BusinessLogicServicesTests
             IsDeleted = false
         };
 
+        /// <summary>
+        /// The patient diseases  for tests
+        /// </summary>
         public List<PatientDisease> patientDiseases = new List<PatientDisease>
         {
             new PatientDisease

@@ -6,11 +6,19 @@ using Moq;
 
 namespace BusinessLogicServicesTests
 {
+    /// <summary>
+    /// Tests for PatientDiseaseManager class
+    /// </summary>
     [TestClass]
     public class PatientDiseaseManagerTests
     {
+        /// <summary>
+        /// Test for method Add
+        /// Correct input - correct patient disease
+        /// Returned id of added entity
+        /// </summary>
         [TestMethod]
-        public void Add_CorrectPatientDisease()
+        public void Add_CorrectPatientDisease_ReturnedIdOfAddedEntity()
         {
             // Arrange
             TestData testData = new TestData();
@@ -28,6 +36,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.patientDisease.PatientDiseaseId, addedPatientDiseaseId);
         }
 
+        /// <summary>
+        /// Test for method Add
+        /// IncCorrect input - Disease Id in patientDisease doesn`t exist
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_InCorrectDiseaseId_ExpectedException()
@@ -44,6 +57,11 @@ namespace BusinessLogicServicesTests
             int addedPatientDiseaseId = service.Add(testData.patientDisease);
         }
 
+        /// <summary>
+        /// Test for method Add
+        /// Incorrect input - Patient Id in patientDisease doesn`t exist
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_InCorrectPatientId_ExpectedException()
@@ -61,6 +79,11 @@ namespace BusinessLogicServicesTests
             int addedPatientDiseaseId = service.Add(testData.patientDisease);
         }
 
+        /// <summary>
+        /// Test for method Add
+        /// Incorrect input - StartDate is later than Now
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_InCorrectStartDate_ExpectedException()
@@ -79,6 +102,11 @@ namespace BusinessLogicServicesTests
             int addedPatientDiseaseId = service.Add(testData.patientDisease);
         }
 
+        /// <summary>
+        /// Test for method Add
+        /// Incorrect input - EndDate is earlier than StartDate
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_InCorrectEndDate_ExpectedException()
@@ -97,8 +125,13 @@ namespace BusinessLogicServicesTests
             int addedPatientDiseaseId = service.Add(testData.patientDisease);
         }
 
+        /// <summary>
+        /// Test for method Delete
+        /// Correct input - correct patientdisease id
+        /// Returned Deleted PatientDiseaseId
+        /// </summary>
         [TestMethod]
-        public void Delete_CorrectPatientDiseaseId_ReturnedDeletedPatientId()
+        public void Delete_CorrectPatientDiseaseId_ReturnedDeletedPatientDiseaseId()
         {
             // Arrange
             TestData testData = new TestData();
@@ -115,6 +148,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.patientDisease.PatientDiseaseId, deletedPatientDiseaseId);
         }
 
+        /// <summary>
+        /// Test for method Update
+        /// Correct input
+        /// Returned updated PatientDiseaseId
+        /// </summary>
         [TestMethod]
         public void Update_CorrectInput_ReturnedUpdatedPatientDiseaseId()
         {

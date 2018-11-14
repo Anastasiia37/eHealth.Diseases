@@ -9,9 +9,17 @@ using Moq;
 
 namespace BusinessLogicServicesTests
 {
+    /// <summary>
+    /// Tests for DiseaseManager class
+    /// </summary>
     [TestClass]
     public class DiseaseManagerTests
     {
+        /// <summary>
+        /// Tests method Add
+        /// Correct Disease entity for input
+        /// Return Id Of Added Disease
+        /// </summary>
         [TestMethod]
         public void Add_CorrectInputDisease_ReturnIdOfAddedDisease()
         {
@@ -30,6 +38,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.disease.DiseaseId, addedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Add
+        /// InCorrect input: disease name already exists
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Add_InorrectInputDiseaseName_ExceptionExpected()
@@ -47,6 +60,11 @@ namespace BusinessLogicServicesTests
             int addedDiseaseId = service.Add(testData.disease);
         }
 
+        /// <summary>
+        /// Tests method Delete
+        /// Correct Disease id for input
+        /// Return Id Of Deleted Disease
+        /// </summary>
         [TestMethod]
         public void Delete_CorrectInputDiseaseId_ReturnIdOfDeletedDisease()
         {
@@ -65,6 +83,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.disease.DiseaseId, deletedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Delete
+        /// InCorrect input: Disease id doesn`t exist
+        /// Exception ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Delete_InCorrectInputDiseaseId_ExceptionExpected()
@@ -83,6 +106,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.disease.DiseaseId, deletedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Get
+        /// Correct Disease id for input
+        /// Return Disease with specified Id
+        /// </summary>
         [TestMethod]
         public void Get_CorrectInputDiseaseId_ReturnDisease()
         {
@@ -99,6 +127,11 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(testData.disease, disease);
         }
 
+        /// <summary>
+        /// Tests method Get
+        /// InCorrect input: Disease id doesn`t exist
+        /// Return Null
+        /// </summary>
         [TestMethod]
         public void Get_InCorrectInputDiseaseId_ReturnNull()
         {
@@ -115,6 +148,11 @@ namespace BusinessLogicServicesTests
             Assert.IsNull(disease);
         }
 
+        /// <summary>
+        /// Tests method GetDiseases
+        /// Correct input
+        /// Return list of all diseases
+        /// </summary>
         [TestMethod]
         public void GetAll_CorrectInput_ReturnAllTestDiseases()
         {
@@ -131,6 +169,11 @@ namespace BusinessLogicServicesTests
             CollectionAssert.AreEqual(testData.Diseases, diseases);
         }
 
+        /// <summary>
+        /// Tests method GetDiseasesInCategory
+        /// Correct input - correct category id
+        /// Return list of all diseases with specified category
+        /// </summary>
         [TestMethod]
         public void GetDiseasesInCategory_CorrectInputCategotyId_ListOfDiseases()
         {
@@ -149,6 +192,11 @@ namespace BusinessLogicServicesTests
             CollectionAssert.AreEqual(testData.Diseases, diseases);
         }
 
+        /// <summary>
+        /// Tests method GetDiseasesInCategory
+        /// Incorrect input - doesn`t have specified category id
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void GetDiseasesInCategory_InCorrectInputCategotyId_ExpectedException()
@@ -164,6 +212,11 @@ namespace BusinessLogicServicesTests
             List<Disease> diseases = service.GetDiseasesInCategory(testData.disease.CategoryId).ToList();
         }
 
+        /// <summary>
+        /// Tests method Update
+        /// Correct input
+        /// Return id of updated disease
+        /// </summary>
         [TestMethod]
         public void Update_CorrectInput_ReturnIdOfUpdatedDisease()
         {
@@ -185,9 +238,14 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(expectedUpdatedDiseaseId, actualUpdatedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Update
+        /// InCorrect input - disease with such id doesn`t exists
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Update_InCorrectInputDiseaseId_ReturnIdOfUpdatedDisease()
+        public void Update_InCorrectInputDiseaseId_ExpectedException()
         {
             // Arrange
             TestData testData = new TestData();
@@ -208,9 +266,14 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(expectedUpdatedDiseaseId, actualUpdatedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Update
+        /// InCorrect input - category id doesn`t exists
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Update_InCorrectInputCategoryId_ReturnIdOfUpdatedDisease()
+        public void Update_InCorrectInputCategoryId_ExpectedException()
         {
             // Arrange
             TestData testData = new TestData();
@@ -231,9 +294,14 @@ namespace BusinessLogicServicesTests
             Assert.AreEqual(expectedUpdatedDiseaseId, actualUpdatedDiseaseId);
         }
 
+        /// <summary>
+        /// Tests method Update
+        /// InCorrect input - Disease name already exists
+        /// Expected ArgumentException
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void Update_InCorrectInputDiseaseNameAlreadyExists_ReturnIdOfUpdatedDisease()
+        public void Update_InCorrectInputDiseaseNameAlreadyExists_ExpectedException()
         {
             // Arrange
             TestData testData = new TestData();
@@ -253,27 +321,5 @@ namespace BusinessLogicServicesTests
             // Assert
             Assert.AreEqual(expectedUpdatedDiseaseId, actualUpdatedDiseaseId);
         }
-
-        /*
-
-         public int Update(int diseaseId, Disease disease)
-         {
-             if (this.dataAccessManager.GetDisease(diseaseId) == null)
-             {
-                 throw new ArgumentException("Not valid disease id!");
-             }
-
-             if (!this.dataAccessManager.GetDiseaseCategories().Any(category => category.CategoryId == disease.CategoryId))
-             {
-                 throw new ArgumentException("Not valid category id!");
-             }
-
-             if (this.dataAccessManager.GetDiseasesInCategory(disease.CategoryId).Any(d => d.Name == disease.Name))
-             {
-                 throw new ArgumentException("Disease name already exists!");
-             }
-
-             return this.dataAccessManager.UpdateDisease(diseaseId, disease);
-         }*/
     }
 }
