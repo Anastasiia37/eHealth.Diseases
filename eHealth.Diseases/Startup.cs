@@ -28,10 +28,11 @@ namespace eHealth.Diseases
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=eHealth1;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string con = "Server=(localdb)\\mssqllocaldb;Database=eHealth5;Trusted_Connection=True;MultipleActiveResultSets=true";
             services.AddDbContext<IDataAccessManager, DataAccessManager>(options => options.UseSqlServer(con));
             services.AddScoped<IDiseaseManager, DiseaseManager>();
             services.AddScoped<IPatientDiseaseManager, PatientDiseaseManager>();
+            services.AddScoped<IDiseaseCategoryManager, DiseaseCategoryManager>();
             Mapper.Initialize(config =>
             {
                 config.CreateMap<AddPatientDiseaseRequest, PatientDisease>();
@@ -43,7 +44,6 @@ namespace eHealth.Diseases
                 config.CreateMap<Disease, DiseaseView>();
                 config.CreateMap<DiseaseCategoryRequest, DiseaseCategory>();
                 config.CreateMap<DiseaseCategory, DiseaseCategoryView>();
-
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
@@ -52,7 +52,7 @@ namespace eHealth.Diseases
                 {
                     Version = "v1",
                     Title = "eHealth.Diseases",
-                    Description = "Part of eHealth project",
+                    Description = "EHealth project. Subsystem Diseases",
                     TermsOfService = "None",
                     Contact = new Contact()
                     {

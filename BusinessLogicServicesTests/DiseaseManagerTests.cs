@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using eHealth.Diseases.BusinessLogic.Contracts;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using System.Linq;
+using eHealth.Diseases.BusinessLogic.Contracts;
 using eHealth.Diseases.BusinessLogic.DbContext.Entity;
 using eHealth.Diseases.BusinessLogic.Managers.Service;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace BusinessLogicServicesTests
 {
@@ -73,8 +72,8 @@ namespace BusinessLogicServicesTests
             // Arrange
             TestData testData = new TestData();
             var mockDataProvider = new Mock<IDataAccessManager>();
-             mockDataProvider.Setup(mock => mock.DeleteDisease(testData.disease.DiseaseId)).
-                Returns(testData.disease.DiseaseId);
+            mockDataProvider.Setup(mock => mock.DeleteDisease(testData.disease.DiseaseId)).
+               Returns(testData.disease.DiseaseId);
             var service = new DiseaseManager(mockDataProvider.Object);
 
             // Act

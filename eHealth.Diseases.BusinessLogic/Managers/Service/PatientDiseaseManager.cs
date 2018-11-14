@@ -165,7 +165,12 @@ namespace eHealth.Diseases.BusinessLogic.Managers.Service
 
             if (this.dataAccessManager.GetPatientDisease(patientDiseaseId).StartDate > patientDisease.EndDate)
             {
-                throw new ArgumentException("Not valid end date!");
+                throw new ArgumentException("End date can`t be less start day!");
+            }
+
+            if (patientDisease.EndDate > DateTime.Now)
+            {
+                throw new ArgumentException("End date can`t be after Now!");
             }
 
             return this.dataAccessManager.UpdatePatientDisease(patientDiseaseId, patientDisease);

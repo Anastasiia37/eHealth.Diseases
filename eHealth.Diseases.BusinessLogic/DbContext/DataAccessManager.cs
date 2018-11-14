@@ -117,8 +117,6 @@ namespace eHealth.Diseases.BusinessLogic.DbContext
                 Select(patientDisease => new PatientDisease
                 {
                     PatientDiseaseId = patientDisease.PatientDiseaseId,
-                    //DiseaseId = patientDisease.DiseaseId,
-                    //Disease = Diseases.FirstOrDefault(d => d.DiseaseId == patientDisease.DiseaseId)
                     Disease = patientDisease.Disease
                 });
             return (IEnumerable<PatientDisease>)patientDiseasesNames;
@@ -243,7 +241,7 @@ namespace eHealth.Diseases.BusinessLogic.DbContext
             diseaseForUpdate.CategoryId = disease.CategoryId;
             diseaseForUpdate.Description = disease.Description;
             this.SaveChanges();
-            return disease.DiseaseId;
+            return diseaseForUpdate.DiseaseId;
         }
 
         /// <summary>

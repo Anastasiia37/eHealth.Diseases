@@ -43,7 +43,7 @@ namespace eHealth.Diseases.Controllers
         {
             if (this.diseaseManager.GetAll().Any())
             {
-                return Ok(this.diseaseManager.GetAll());
+                return Ok(Mapper.Map<IEnumerable<DiseaseView>>(this.diseaseManager.GetAll()));
             }
 
             return NoContent();

@@ -98,7 +98,7 @@ namespace eHealth.Diseases.Controllers
         {
             try
             {
-                return Ok(this.patientDiseaseManager.Get(patientDiseaseId));
+                return Ok(Mapper.Map<PatientDiseaseView>(this.patientDiseaseManager.Get(patientDiseaseId)));
             }
             catch (ArgumentException exception)
             {

@@ -9,6 +9,7 @@ namespace eHealth.Diseases.BusinessLogic.Contracts
     public interface IDataAccessManager
     {
         #region Disease
+
         /// <summary>
         /// Gets the diseases
         /// </summary>
@@ -62,9 +63,11 @@ namespace eHealth.Diseases.BusinessLogic.Contracts
         /// Updated disease id
         /// </returns>
         int UpdateDisease(int diseaseId, Disease disease);
-        #endregion
+
+        #endregion Disease
 
         #region PatirntDisease
+
         /// <summary>
         /// Gets the disease names of the specified patient
         /// </summary>
@@ -121,7 +124,8 @@ namespace eHealth.Diseases.BusinessLogic.Contracts
         /// or null if patient disease id does not exist
         /// </returns>
         int UpdatePatientDisease(int patientDiseaseId, PatientDisease patientDisease);
-        #endregion
+
+        #endregion PatirntDisease
 
         /// <summary>
         /// Gets the enumeration of disease categories

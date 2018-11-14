@@ -46,18 +46,6 @@ namespace eHealth.Diseases.Models
         }
 
         /// <summary>
-        /// Gets or sets the disease
-        /// </summary>
-        /// <value>
-        /// The disease
-        /// </value>
-        public DiseaseView Disease
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Gets or sets the start date
         /// </summary>
         /// <value>

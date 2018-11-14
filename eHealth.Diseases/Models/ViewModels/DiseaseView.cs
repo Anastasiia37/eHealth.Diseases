@@ -30,12 +30,12 @@
         }
 
         /// <summary>
-        /// Gets or sets the category
+        /// Gets or sets the category id
         /// </summary>
         /// <value>
         /// The category
         /// </value>
-        public DiseaseCategoryView Category
+        public int CategoryId
         {
             get;
             set;

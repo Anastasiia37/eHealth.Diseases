@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using eHealth.Diseases.BusinessLogic.DbContext.Entity;
 
 namespace BusinessLogicServicesTests
