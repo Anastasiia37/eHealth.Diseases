@@ -1,16 +1,70 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using eHealth.Diseases.BusinessLogic.DbContext.Entity;
 
 namespace eHealth.Diseases.BusinessLogic.Contracts
 {
+    /// <summary>
+    /// interface for Data Access Manager
+    /// </summary>
     public interface IDataAccessManager
     {
-        IEnumerable<Disease> GetDeseases();
+        #region Disease
+        /// <summary>
+        /// Gets the diseases
+        /// </summary>
+        /// <returns>
+        /// The enumeration of diseases
+        /// </returns>
+        IEnumerable<Disease> GetDiseases();
 
-        string GetDiseaseName(int diseaseId);
+        /// <summary>
+        /// Gets the diseases in category
+        /// </summary>
+        /// <param name="categoryId">The category identifier</param>
+        /// <returns>
+        /// The enumeration of diseases
+        /// </returns>
+        IEnumerable<Disease> GetDiseasesInCategory(int categoryId);
 
+        /// <summary>
+        /// Gets the disease
+        /// </summary>
+        /// <param name="diseaseId">The disease identifier</param>
+        /// <returns>
+        /// Disease
+        /// </returns>
+        Disease GetDisease(int diseaseId);
+
+        /// <summary>
+        /// Adds the disease
+        /// </summary>
+        /// <param name="disease">The disease</param>
+        /// <returns>
+        /// Disease id
+        /// </returns>
+        int AddDisease(Disease disease);
+
+        /// <summary>
+        /// Deletes the disease
+        /// </summary>
+        /// <param name="diseaseId">The disease identifier</param>
+        /// <returns>
+        /// Deleted disease id
+        /// </returns>
+        int DeleteDisease(int diseaseId);
+
+        /// <summary>
+        /// Updates the disease
+        /// </summary>
+        /// <param name="diseaseId">The disease identifier</param>
+        /// <param name="disease">The disease</param>
+        /// <returns>
+        /// Updated disease id
+        /// </returns>
+        int UpdateDisease(int diseaseId, Disease disease);
+        #endregion
+
+        #region PatirntDisease
         /// <summary>
         /// Gets the disease names of the specified patient
         /// </summary>
@@ -59,16 +113,15 @@ namespace eHealth.Diseases.BusinessLogic.Contracts
         int DeleteDiseaseFromPatient(int patientDiseaseId);
 
         /// <summary>
-        /// Updates the patient disease
+        /// Updates patient disease
         /// </summary>
-        /// <param name="patientId">The patient identifier</param>
-        /// <param name="diseaseId">The disease identifier</param>
-        /// <param name="patientDisease">The updated patient disease</param>
+        /// <param name="patientId">The patient disease identifier</param>
         /// <returns>
         /// The identifier of updated patient disease
-        /// or null if patient id does not exist or disease id does not exist
+        /// or null if patient disease id does not exist
         /// </returns>
-        int? UpdateDisease(int patientId, int diseaseId, PatientDisease patientDisease);
+        int UpdatePatientDisease(int patientDiseaseId, PatientDisease patientDisease);
+        #endregion
 
         /// <summary>
         /// Gets the enumeration of disease categories
@@ -78,20 +131,31 @@ namespace eHealth.Diseases.BusinessLogic.Contracts
         /// </returns>
         IEnumerable<DiseaseCategory> GetDiseaseCategories();
 
-        IEnumerable<Disease> GetDiseasesInCategory(int categoryId);
+        /// <summary>
+        /// Adds the disease category
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>
+        /// Id of added category
+        /// </returns>
+        int AddDiseaseCategory(DiseaseCategory category);
 
-        Disease GetDisease(int diseaseId);
-
-        int AddDisease(Disease disease);
-
-        int DeleteDisease(int diseaseId);
-
-        int UpdateDisease(int diseaseId, Disease disease);
-
+        /// <summary>
+        /// Determines whether patient identifier is valid
+        /// </summary>
+        /// <param name="patientId">The patient identifier</param>
+        /// <returns>
+        ///   <c>true</c> if patient identifier is valid; otherwise, <c>false</c>
+        /// </returns>
         bool isValidPatientId(int patientId);
 
+        /// <summary>
+        /// Determines whether patient disease identifier is valid
+        /// </summary>
+        /// <param name="patientDiseaseId">The patient disease identifier.</param>
+        /// <returns>
+        ///   <c>true</c> if patient disease identifier is valid; otherwise, <c>false</c>
+        /// </returns>
         bool isValidPatientDiseaseId(int patientDiseaseId);
-
-        //bool isValidCategoryId(int patientId);
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using eHealth.Diseases.BusinessLogic.Contracts;
 using eHealth.Diseases.BusinessLogic.Contracts.Service;
 using eHealth.Diseases.BusinessLogic.DbContext;
@@ -12,13 +8,10 @@ using eHealth.Diseases.BusinessLogic.Models;
 using eHealth.Diseases.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace eHealth.Diseases
@@ -41,13 +34,16 @@ namespace eHealth.Diseases
             services.AddScoped<IPatientDiseaseManager, PatientDiseaseManager>();
             Mapper.Initialize(config =>
             {
-                config.CreateMap<PatientDiseaseRequest, PatientDisease>();
+                config.CreateMap<AddPatientDiseaseRequest, PatientDisease>();
+                config.CreateMap<UpdatePatientDiseaseRequest, PatientDisease>();
+                config.CreateMap<PatientDisease, PatientDiseaseView>();
                 config.CreateMap<PatientDisease, PatientDiseaseNamesView>().
                     ForMember(dest => dest.DiseaseName, src => src.MapFrom(s => s.Disease.Name));
-                config.CreateMap<DiseaseCategory, DiseaseCategoryView>();
+                config.CreateMap<DiseaseRequest, Disease>();
                 config.CreateMap<Disease, DiseaseView>();
-                config.CreateMap<PatientDisease, PatientDiseaseView>();
-                config.CreateMap<DiseaseRequest,Disease>();
+                config.CreateMap<DiseaseCategoryRequest, DiseaseCategory>();
+                config.CreateMap<DiseaseCategory, DiseaseCategoryView>();
+
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddSwaggerGen(c =>
@@ -62,7 +58,8 @@ namespace eHealth.Diseases
                     {
                         Name = "Anastasiia Peretiatko",
                         Email = "_nastya_@ua.fm",
-                        Url = "www.github.com/Anastasiia37" }
+                        Url = "www.github.com/Anastasiia37"
+                    }
                 });
             });
         }

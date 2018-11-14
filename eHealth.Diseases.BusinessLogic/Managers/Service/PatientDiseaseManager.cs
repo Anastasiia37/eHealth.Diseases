@@ -1,30 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using eHealth.Diseases.BusinessLogic.Contracts;
 using eHealth.Diseases.BusinessLogic.Contracts.Service;
 using eHealth.Diseases.BusinessLogic.DbContext.Entity;
-using eHealth.Diseases.BusinessLogic.DbContext;
-using eHealth.Diseases.BusinessLogic.Contracts;
 
 namespace eHealth.Diseases.BusinessLogic.Managers.Service
 {
+    /// <summary>
+    /// Service for working with patient`s diseases
+    /// </summary>
+    /// <seealso cref="eHealth.Diseases.BusinessLogic.Contracts.Service.IPatientDiseaseManager" />
     public class PatientDiseaseManager : IPatientDiseaseManager
     {
+        /// <summary>
+        /// The data access manager
+        /// </summary>
         private IDataAccessManager dataAccessManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientDiseaseManager"/> class
+        /// </summary>
+        /// <param name="dataAccessManager">The data access manager</param>
         public PatientDiseaseManager(IDataAccessManager dataAccessManager)
         {
             this.dataAccessManager = dataAccessManager;
         }
 
-        public int AddDiseaseToPatient(PatientDisease patientDisease)
+        /// <summary>
+        /// Adds the specified patient disease
+        /// </summary>
+        /// <param name="patientDisease">The patient disease</param>
+        /// <returns>
+        /// Id of added entity
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Not valid disease id!
+        /// or
+        /// Not valid patient id!
+        /// or
+        /// Not valid start date!
+        /// or
+        /// Start date can`t be later end date!
+        /// </exception>
+        public int Add(PatientDisease patientDisease)
         {
-            if (this.GetDisease(patientDisease.DiseaseId) == null)
+            if (this.dataAccessManager.GetDisease(patientDisease.DiseaseId) == null)
             {
                 throw new ArgumentException("Not valid disease id!");
             }
 
-            if (this.dataAccessManager.isValidPatientId(patientDisease.PatientId))
+            if (!this.dataAccessManager.isValidPatientId(patientDisease.PatientId))
             {
                 throw new ArgumentException("Not valid patient id!");
             }
@@ -42,22 +67,33 @@ namespace eHealth.Diseases.BusinessLogic.Managers.Service
             return this.dataAccessManager.AddDiseaseToPatient(patientDisease);
         }
 
-        public int DeleteDiseaseFromPatient(int patientDiseaseId)
+        /// <summary>
+        /// Deletes the patient disease with specified  identifier
+        /// </summary>
+        /// <param name="patientDiseaseId">The patient disease identifier</param>
+        /// <returns>
+        /// Id of deleted entity
+        /// </returns>
+        /// <exception cref="ArgumentException">Invalid patient`s disease id!</exception>
+        public int Delete(int patientDiseaseId)
         {
             if (this.dataAccessManager.GetPatientDisease(patientDiseaseId) != null)
             {
                 return this.dataAccessManager.DeleteDiseaseFromPatient(patientDiseaseId);
             }
 
-            throw new ArgumentException("Invalis patient`s disease id!");
+            throw new ArgumentException("Invalid patient`s disease id!");
         }
 
-        public IEnumerable<Disease> GetDisease(int patientId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PatientDisease GetPatientDisease(int patientDiseaseId)
+        /// <summary>
+        /// Gets the patient disease with specified identifier
+        /// </summary>
+        /// <param name="patientDiseaseId">The patient disease identifier</param>
+        /// <returns>
+        /// Patient disease
+        /// </returns>
+        /// <exception cref="ArgumentException">Not valid patient`s disease id!</exception>
+        public PatientDisease Get(int patientDiseaseId)
         {
             if (this.dataAccessManager.isValidPatientDiseaseId(patientDiseaseId))
             {
@@ -67,6 +103,19 @@ namespace eHealth.Diseases.BusinessLogic.Managers.Service
             throw new ArgumentException("Not valid patient`s disease id!");
         }
 
+        public IEnumerable<PatientDisease> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the disease names of the specified patient
+        /// </summary>
+        /// <param name="patientId">The patient identifier</param>
+        /// <returns>
+        /// The enumeration of patient disease names
+        /// </returns>
+        /// <exception cref="ArgumentException">Not valid patient id!</exception>
         public IEnumerable<PatientDisease> GetPatientDiseaseNames(int patientId)
         {
             if (this.dataAccessManager.isValidPatientId(patientId))
@@ -77,16 +126,49 @@ namespace eHealth.Diseases.BusinessLogic.Managers.Service
             throw new ArgumentException("Not valid patient id!");
         }
 
+        /// <summary>
+        /// Gets the patient diseases
+        /// </summary>
+        /// <param name="patientId">The patient identifier</param>
+        /// <returns>
+        /// The list of patient diseases
+        /// </returns>
         public IEnumerable<PatientDisease> GetPatientDiseases(int patientId)
         {
-            var a = this.dataAccessManager.GetPatientDiseases(patientId); ;
-            return a;
-            //return this.dataAccessManager.GetPatientDiseases(patientId);
+            if (this.dataAccessManager.isValidPatientId(patientId))
+            {
+                return this.dataAccessManager.GetPatientDiseases(patientId);
+            }
+
+            throw new ArgumentException("Not valid patient id!");
         }
 
-        public int? UpdateDisease(int patientId, int diseaseId, PatientDisease patientDisease)
+        /// <summary>
+        /// Updates the patient disease with specified identifier
+        /// </summary>
+        /// <param name="patientDiseaseId">The patient disease identifier</param>
+        /// <param name="patientDisease">The patient disease</param>
+        /// <returns>
+        /// Id of updated disease
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Not valid patient`s disease id!
+        /// or
+        /// Not valid end date!
+        /// </exception>
+        public int Update(int patientDiseaseId, PatientDisease patientDisease)
         {
-            throw new NotImplementedException();
+            if (this.dataAccessManager.GetPatientDisease(patientDiseaseId) == null)
+            {
+                throw new ArgumentException("Not valid patient`s disease id!");
+            }
+
+            if (this.dataAccessManager.GetPatientDisease(patientDiseaseId).StartDate > patientDisease.EndDate)
+            {
+                throw new ArgumentException("Not valid end date!");
+            }
+
+            return this.dataAccessManager.UpdatePatientDisease(patientDiseaseId, patientDisease);
         }
     }
 }

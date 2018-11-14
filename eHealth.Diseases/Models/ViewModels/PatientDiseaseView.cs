@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
+namespace eHealth.Diseases.Models
 {
     /// <summary>
-    /// Entity for patient`s diseases
+    /// Model for view of patient disease
     /// </summary>
-    public class PatientDisease
+    public class PatientDiseaseView
     {
         /// <summary>
         /// Gets or sets the patient disease identifier
@@ -28,8 +27,6 @@ namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
         /// <value>
         /// The patient identifier
         /// </value>
-        [Required(ErrorMessage = "Please, input patient id!")]
-        [ForeignKey("PatientInfo")]
         public int PatientId
         {
             get;
@@ -42,8 +39,6 @@ namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
         /// <value>
         /// The disease identifier
         /// </value>
-        [Required(ErrorMessage = "Please, input disease id!")]
-        [ForeignKey("Disease")]
         public int DiseaseId
         {
             get;
@@ -56,20 +51,7 @@ namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
         /// <value>
         /// The disease
         /// </value>
-        public virtual Disease Disease
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the user identifier
-        /// </summary>
-        /// <value>
-        /// The user identifier
-        /// </value>
-        [Required(ErrorMessage = "Please, input doctor id!")]
-        public int UserId
+        public DiseaseView Disease
         {
             get;
             set;
@@ -81,7 +63,6 @@ namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
         /// <value>
         /// The start date
         /// </value>
-        [Required(ErrorMessage = "Please, input start date of disease!")]
         public DateTime StartDate
         {
             get;
@@ -107,18 +88,6 @@ namespace eHealth.Diseases.BusinessLogic.DbContext.Entity
         /// The note
         /// </value>
         public string Note
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this instance is deleted
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>
-        /// </value>
-        public bool IsDeleted
         {
             get;
             set;
