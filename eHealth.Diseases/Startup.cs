@@ -28,7 +28,7 @@ namespace eHealth.Diseases
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=(localdb)\\mssqllocaldb;Database=eHealth5;Trusted_Connection=True;MultipleActiveResultSets=true";
+            string con = "Server=(localdb)\\mssqllocaldb;Database=eHealth9;Trusted_Connection=True;MultipleActiveResultSets=true";
             services.AddDbContext<IDataAccessManager, DataAccessManager>(options => options.UseSqlServer(con));
             services.AddScoped<IDiseaseManager, DiseaseManager>();
             services.AddScoped<IPatientDiseaseManager, PatientDiseaseManager>();

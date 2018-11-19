@@ -86,7 +86,9 @@ namespace eHealth.Diseases.BusinessLogic.DbContext
         /// </returns>
         public IEnumerable<PatientDisease> GetPatientDiseases(int patientId)
         {
-            return this.PatientDiseases.Where(p => p.PatientId == patientId && p.IsDeleted == false);
+            // Using linq
+            // return this.PatientDiseases.Where(p => p.PatientId == patientId && p.IsDeleted == false);
+            return this.Set<PatientDisease>().FromSql("[dbo].[GetPatientDiseases] @patientId = {0}", patientId);
         }
 
         /// <summary>
@@ -133,6 +135,7 @@ namespace eHealth.Diseases.BusinessLogic.DbContext
         {
             this.PatientDiseases.Add(patientDisease);
             this.SaveChanges();
+            //this.Set<PatientDisease>().FromSql()
             return PatientDiseases.Last<PatientDisease>().PatientDiseaseId;
         }
 
