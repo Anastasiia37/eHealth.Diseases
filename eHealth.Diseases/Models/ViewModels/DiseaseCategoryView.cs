@@ -1,0 +1,32 @@
+﻿namespace eHealth.Diseases.Models
+{
+    /// <summary>
+    /// Model for view of disease category
+    /// </summary>
+    public class DiseaseCategoryView
+    {
+        /// <summary>
+        /// Gets or sets the category identifier
+        /// </summary>
+        /// <value>
+        /// The category identifier
+        /// </value>
+        public int CategoryId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the name
+        /// </summary>
+        /// <value>
+        /// The name
+        /// </value>
+        public string Name
+        {
+            get;
+            set;
+        }
+    }
+}
